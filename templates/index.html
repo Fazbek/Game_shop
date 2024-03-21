@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Categories</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>Game Categories</h1>
+
+{% for category in game_categories %}
+    <h2>{{ category.game_category_title }}</h2>
+    <ul>
+        {% for game in category.game_model_set.all %}
+            <li>
+                <h3>{{ game.game_title }}</h3>
+                <p>Price: ${{ game.game_price }}</p>
+                <p>Count: {{ game.game_count }}</p>
+                <p>Description: {{ game.game_descriptions }}</p>
+                <img src="{{ game.game_image.url }}" alt="{{ game.game_title }}">
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+
+</body>
+</html>
