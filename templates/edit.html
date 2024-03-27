@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Game</title>
+    <link rel="stylesheet" href="{% static 'edit.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Game</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="game_title">Title:</label>
+            <input type="text" id="game_title" name="game_title" value="{{ game_edit.game_title }}" required>
+            <label for="game_descriptions">Description:</label>
+            <textarea id="game_descriptions" name="game_descriptions" rows="4" required>{{ game_edit.game_descriptions }}</textarea>
+            <label for="game_image">Image URL:</label>
+            <input type="text" id="game_image" name="game_image" value="{{ game_edit.game_image }}" required>
+            <label for="game_created_at">Created At:</label>
+            <input type="date" id="game_created_at" name="game_created_at" value="{{ game_edit.game_created_at }}" required>
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>

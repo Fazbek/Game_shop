@@ -1,29 +1,40 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Categories</title>
-    <link rel="stylesheet" href="styles.css">
+
+    <title>Game Shop</title>
 </head>
 <body>
+    <header>
+        <h1>Welcome to our game shop site!</h1>
+    </header>
 
-<h1>Game Categories</h1>
-
-{% for category in game_categories %}
-    <h2>{{ category.game_category_title }}</h2>
-    <ul>
-        {% for game in category.game_model_set.all %}
-            <li>
-                <h3>{{ game.game_title }}</h3>
-                <p>Price: ${{ game.game_price }}</p>
-                <p>Count: {{ game.game_count }}</p>
-                <p>Description: {{ game.game_descriptions }}</p>
-                <img src="{{ game.game_image.url }}" alt="{{ game.game_title }}">
-            </li>
+    <nav>
+        {% for item in categories %}
+            <a href="#">{{ item.game_category_title }}</a>
         {% endfor %}
-    </ul>
-{% endfor %}
+        {% if user.is_authenticated %}
+                <a href="/logout"><i class="fa fa-commenting-o"></i>Logout {{ user.username }}</a>
+        {% else %}
+                <a href="/login"><i class="fa fa-commenting-o"></i>Login</a>
+        {% endif %}
+    </nav>
 
+    <section>
+        {% for i in game_products %}
+            <article>
+                <h2>{{ i.game_title }}</h2>
+                <p style="width:300px">{{ i.game_descriptions }}</p>
+                <img src="{{ i.product_images.url }}">
+            </article>
+        {% endfor %}
+    </section>
+    <a href="edit/{{ news_edit.pk }}"><button>Edit game product</button></a>
+    <a href="delete/{{ news_edit.pk }}"><button>Delete game product</button></a>
 </body>
 </html>
