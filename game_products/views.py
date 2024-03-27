@@ -25,8 +25,8 @@ def logout_view(request):
     return redirect("home")
 
 
-def create(request, pk):
-    game_create = GameModel.objects.get(pk=pk)
+def create(request):
+    game_create = GameModel.objects.all()
     if request.method == "POST":
         game_create.game_title = request.POST.get("game_title")
         game_create.game_descriptions = request.POST.get("game_descriptions")
@@ -39,9 +39,9 @@ def create(request, pk):
         return render(request, "create.html", {"game_create": game_create})
 
 
-def edit(request, pk):
+def edit(request):
     try:
-        game_edit = GameModel.objects.get(pk=pk)
+        game_edit = GameModel.objects.all()
 
         if request.method == "POST":
             game_edit.game_title = request.POST.get("game_title")
@@ -56,9 +56,9 @@ def edit(request, pk):
         return HttpResponseNotFound("<h2>Game not found</h2>")
 
 
-def delete(request, pk):
+def delete(request):
     try:
-        game_delete = GameModel.objects.get(pk=pk)
+        game_delete = GameModel.objects.all()
         game_delete.delete()
         return HttpResponseRedirect("/")
     except GameModel.DoesNotExist:
